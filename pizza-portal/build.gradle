@@ -1,0 +1,41 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springBootAdminVersion', "2.2.1")
+}
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'de.codecentric:spring-boot-admin-starter-server'
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
